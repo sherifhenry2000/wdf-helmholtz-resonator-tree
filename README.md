@@ -41,12 +41,10 @@ Applying the bilinear transform with sampling period $T_s = 1/f_s$:
 
 ### Multi-Port Junction Adaptors
 Scattering is solved per adaptor using vectorized scattering formulations:
-- **Series Adaptors ($N$-Port):**
-  $$\mathbf{S} = \mathbf{I} - \boldsymbol{\alpha}^T \mathbf{1}_{1 \times N}, \quad \alpha_j = \frac{2 Z_j}{\sum_{k=1}^N Z_k}$$
+- **Series Adaptors ($N$-Port):** $\mathbf{S} = \mathbf{I} - \boldsymbol{\alpha}^T \mathbf{1}_{1 \times N}, \quad \alpha_j = \frac{2 Z_j}{\sum_{k=1}^N Z_k}$  
   *Port 1 reflection-free condition:* $Z_1 = \sum_{k=2}^N Z_k$
 
-- **Parallel Adaptors ($N$-Port):**
-  $$\mathbf{S} = \mathbf{1}_{N \times 1} \boldsymbol{\alpha} - \mathbf{I}, \quad \alpha_j = \frac{2 G_j}{\sum_{k=1}^N G_k}, \quad G_j = \frac{1}{Z_j}$$
+- **Parallel Adaptors ($N$-Port):** $\mathbf{S} = \mathbf{1}_{N \times 1} \boldsymbol{\alpha} - \mathbf{I}, \quad \alpha_j = \frac{2 G_j}{\sum_{k=1}^N G_k}, \quad G_j = \frac{1}{Z_j}$  
   *Port 1 reflection-free condition:* $Z_1 = \left( \sum_{k=2}^N Z_k^{-1} \right)^{-1}$
 
 ### Tree Adaptation Hierarchy
