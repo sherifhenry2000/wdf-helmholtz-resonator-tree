@@ -40,12 +40,18 @@ Applying the bilinear transform with sampling period $T_s = 1/f_s$:
 - **Ideal Voltage Source (Root):** $b[k] = 2V_{\text{in}}[k] - a[k]$ (Unadapted)
 
 ### Multi-Port Junction Adaptors
-Scattering is solved per adaptor using vectorized scattering formulations:
-- **Series Adaptors ($N$-Port):** $\mathbf{S} = \mathbf{I} - \boldsymbol{\alpha}^T \mathbf{1}_{1 \times N}, \quad \alpha_j = \frac{2 Z_j}{\sum_{k=1}^N Z_k}$  
-  *Port 1 reflection-free condition:* $Z_1 = \sum_{k=2}^N Z_k$
 
-- **Parallel Adaptors ($N$-Port):** $\mathbf{S} = \mathbf{1}_{N \times 1} \boldsymbol{\alpha} - \mathbf{I}, \quad \alpha_j = \frac{2 G_j}{\sum_{k=1}^N G_k}, \quad G_j = \frac{1}{Z_j}$  
-  *Port 1 reflection-free condition:* $Z_1 = \left( \sum_{k=2}^N Z_k^{-1} \right)^{-1}$
+Scattering is computed per junction using matrix formulations:
+
+* **Series Adaptors (N-Port)**
+  * Scattering Matrix: `S = eye(N) - alpha.' * ones(1, N)`
+  * Port Coefficients: `alpha_j = 2 * Z_j / sum(Z)`
+  * Reflection-Free Condition (Port 1): `Z1 = Z2 + Z3 + ... + ZN`
+
+* **Parallel Adaptors (N-Port)**
+  * Scattering Matrix: `S = ones(N, 1) * alpha - eye(N)`
+  * Port Coefficients: `alpha_j = 2 * G_j / sum(G)` where `G_j = 1 / Z_j`
+  * Reflection-Free Condition (Port 1): `1/Z1 = 1/Z2 + 1/Z3 + ... + 1/ZN`
 
 ### Tree Adaptation Hierarchy
 1. **Peripheral Series Adaptors:**
